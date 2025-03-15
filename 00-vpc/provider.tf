@@ -6,10 +6,10 @@ terraform {
         }
     }
     backend "s3" {
-        bucket = 
-        key = 
-        region = 
-        dynamodb_table = 
+        bucket = "guru97s-remote-state"
+        key = "roboshop-infra-dev-vpc"
+        region = "us-east-1"
+        dynamodb_table = "guru97s-locking-dynamodb"
     }
 }
 provider "aws" {
