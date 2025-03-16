@@ -6,6 +6,7 @@ module "mysql_sg" {
     sg_name = "mysql_sg"
     vpc_id = local.vpc_id
     sg_tags = var.mysql_sg_tags
+    sg_description = "mysql inbound rule"
 }
 
 module "node_sg" {
@@ -15,6 +16,7 @@ module "node_sg" {
     common_tags = var.common_tags
     sg_name = "node_sg"
     vpc_id = local.vpc_id
+    sg_description = "node inbound rule"
 }
 
 module "eks_control_plane_sg" {
@@ -34,6 +36,7 @@ module "bastion" {
     common_tags = var.common_tags
     sg_name = "bastion_sg"
     vpc_id = local.vpc_id
+    sg_description = "bastion inbound rule"
 }
 
 module "ingress_alb_sg" {
@@ -43,6 +46,7 @@ module "ingress_alb_sg" {
     common_tags = var.common_tags
     sg_name = "ingress_alg_sg"
     vpc_id = local.vpc_id
+    sg_description = "ingress_alb inbound rule"
 }
 
 resource "aws_security_group_rule" "ingress_alb_https" {
@@ -50,7 +54,7 @@ resource "aws_security_group_rule" "ingress_alb_https" {
     from_port = 443
     to_port = 443
     protocol = "tcp"
-    cidr_block = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.ingress_alb_sg
 }
 
@@ -68,8 +72,8 @@ resource "aws_security_group_rule" "node_eks_control_plane" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    source_security_group_id = module.eks_control_plane_sg
-    security_group_id = module.node_sg
+    source_security_group_id = module.eks_control_plane_sg.id
+    security_group_id = module.node_sg.id
 }
 
 resource "aws_security_group_rule" "node_vpc" {
@@ -77,7 +81,7 @@ resource "aws_security_group_rule" "node_vpc" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    cidr_block = ["10.0.0.0/16"]
+    cidr_blocks = ["10.0.0.0/16"]
     security_group_id = module.node_sg
 }
 
@@ -131,6 +135,6 @@ resource "aws_security_group_rule" "bastion_public" {
     from_port  = 22
     to_port = 22
     protocol = "tcp"
-    cidr_block = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.bastion_sg
 }
