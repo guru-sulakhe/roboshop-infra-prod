@@ -9,7 +9,7 @@ module "mysql_sg" {
 }
 
 module "node_sg" {
-    source = "git::https://github.com/guru-sulakhe/terraform-aws-security-group.git.git?ref=main"
+    source = "git::https://github.com/guru-sulakhe/terraform-aws-security-group.git?ref=main"
     project_name = var.project_name
     environment = var.environment
     common_tags = var.common_tags
