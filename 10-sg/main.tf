@@ -26,7 +26,7 @@ module "eks_control_plane_sg" {
     vpc_id = local.vpc_id
 }
 
-module "bastion" {
+module "bastion_sg" {
     source = "git::https://github.com/guru-sulakhe/terraform-aws-security-group.git?ref=main"
     project_name = var.project_name
     environment = var.environment
