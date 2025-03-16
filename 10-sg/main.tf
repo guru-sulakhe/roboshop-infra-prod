@@ -24,6 +24,7 @@ module "eks_control_plane_sg" {
     common_tags = var.common_tags
     sg_name = "eks_control_plane_sg"
     vpc_id = local.vpc_id
+    sg_description = "eks_control_plane ingress sg"
 }
 
 module "bastion" {
