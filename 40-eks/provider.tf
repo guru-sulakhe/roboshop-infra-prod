@@ -12,7 +12,6 @@ terraform {
         dynamodb_table = "guru97s-locking-dynamodb"
     }
 }
-
 provider "aws" {
     region = "us-east-1"
 }
