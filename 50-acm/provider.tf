@@ -9,7 +9,7 @@ terraform {
         bucket = "guru97s-remote-state"
         key = "roboshop-infra-prod-acm"
         region = "us-east-1"
-        dyanmodb_table = "guru97s-locking-dynamodb"
+        dynamodb_table = "guru97s-locking-dynamodb"
     }
 }
 provider "aws" {
